@@ -24,9 +24,6 @@ dependencies {
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-
-	// docker
-	implementation 'com.github.docker-java:docker-java:3.2.5'
 }
 
 tasks.named('test') {
