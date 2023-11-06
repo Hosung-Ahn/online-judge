@@ -24,6 +24,7 @@ public class FileCreateService {
         // sourceCode 를 일시적으로 저장할 파일을 생성합니다.
         File tempFile = null;
         try {
+            // createTempFile 은 랜덤한 이름의 파일을 생성합니다. -> 동시성 이슈를 막아줍니다.
             tempFile = File.createTempFile("Main", language.getExtension(), submitDirPath.toFile());
         } catch (IOException e) {
             String message = "Failed to create temp file";
@@ -44,7 +45,7 @@ public class FileCreateService {
         return tempFile;
     }
 
-    public File createInputTextFile(String inputText) {
+    public File createTempTextFile(String inputText) {
         Path submitDirPath = Path.of(CURRENT_WORKING_DIR, USER_SUBMIT_DIR);
 
         // submitDirPath 에 해당하는 디렉토리가 없으면 생성합니다.
@@ -53,6 +54,7 @@ public class FileCreateService {
         // inputText 를 일시적으로 저장할 파일을 생성합니다.
         File tempFile = null;
         try {
+            // createTempFile 은 랜덤한 이름의 파일을 생성합니다. -> 동시성 이슈를 막아줍니다.
             tempFile = File.createTempFile("input", ".txt", submitDirPath.toFile());
         } catch (IOException e) {
             String message = "Failed to create temp file";
