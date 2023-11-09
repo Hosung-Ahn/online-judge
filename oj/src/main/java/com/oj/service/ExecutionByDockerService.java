@@ -53,9 +53,9 @@ public class ExecutionByDockerService {
                 case 0:
                     return new ExecutionResult(JudgeResult.SUCCESS, output.toString());
                 case 137: // Docker OOM Killer exit code
-                    return new ExecutionResult(JudgeResult.FAIL, "Error: Out of memory.");
+                    return new ExecutionResult(JudgeResult.FAIL, "에러 : 메모리 초과");
                 case 124: // Timeout command exit code for time limit exceeded
-                    return new ExecutionResult(JudgeResult.FAIL, "Error: Time limit exceeded.");
+                    return new ExecutionResult(JudgeResult.FAIL, "에러 : 시간초과");
                 default:
                     return new ExecutionResult(JudgeResult.FAIL, output.toString());
             }
