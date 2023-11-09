@@ -13,7 +13,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
-class PythonJudgeServiceTest {
+class PythonJudgeTest {
     @Autowired
     private JudgeService judgeService;
 

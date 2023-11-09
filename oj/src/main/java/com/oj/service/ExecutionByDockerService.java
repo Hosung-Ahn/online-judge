@@ -87,7 +87,8 @@ public class ExecutionByDockerService {
             case C:
                 return "";
             case CPP:
-                return "";
+                return String.format("g++ /tmp/%s.cpp -o /tmp/%s && timeout --preserve-status -sKILL %ds /tmp/%s < /tmp/input.txt",
+                        FILENAME_IN_CONTAINER, FILENAME_IN_CONTAINER, timeLimit, FILENAME_IN_CONTAINER);
             case JAVASCRIPT:
                 return String.format("timeout %ds node /tmp/%s.js < /tmp/input.txt", timeLimit, FILENAME_IN_CONTAINER);
             case JAVA:

@@ -4,7 +4,6 @@ import com.oj.dto.JudgeRequest;
 import com.oj.dto.JudgeResponse;
 import com.oj.dto.JudgeResult;
 import com.oj.dto.Language;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +13,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
-public class JavaJudeServiceTest {
+public class JavaJudeTest {
     @Autowired
     private JudgeService judgeService;
 
