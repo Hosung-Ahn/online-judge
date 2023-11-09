@@ -15,6 +15,13 @@ import java.nio.file.Path;
 public class FileCreateService {
     private static final String USER_SUBMIT_DIR = "src/main/java/com/oj/user_submit";
     private static final String CURRENT_WORKING_DIR = System.getProperty("user.dir");
+
+    /**
+     * 만들어진 파일은 반드시 삭제해주세요.
+     * @param sourceCode
+     * @param language
+     * @return
+     */
     public File createTempSourceFile(String sourceCode, Language language) {
         Path submitDirPath = Path.of(CURRENT_WORKING_DIR, USER_SUBMIT_DIR);
 
@@ -45,6 +52,11 @@ public class FileCreateService {
         return tempFile;
     }
 
+    /**
+     * 만들어진 파일은 반드시 삭제해주세요.
+     * @param inputText
+     * @return
+     */
     public File createTempTextFile(String inputText) {
         Path submitDirPath = Path.of(CURRENT_WORKING_DIR, USER_SUBMIT_DIR);
  
