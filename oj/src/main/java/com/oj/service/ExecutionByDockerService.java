@@ -72,6 +72,8 @@ public class ExecutionByDockerService {
                 return "gcc";
             case CPP:
                 return "gcc";
+            case JAVASCRIPT:
+                return "node";
             case JAVA:
                 return "openjdk";
             case PYTHON:
@@ -86,6 +88,8 @@ public class ExecutionByDockerService {
                 return "";
             case CPP:
                 return "";
+            case JAVASCRIPT:
+                return String.format("timeout %ds node /tmp/%s.js < /tmp/input.txt", timeLimit, FILENAME_IN_CONTAINER);
             case JAVA:
                 return String.format("javac /tmp/%s.java && timeout --preserve-status -sKILL %ds java -cp /tmp %s < /tmp/input.txt",
                         FILENAME_IN_CONTAINER, timeLimit, FILENAME_IN_CONTAINER);
