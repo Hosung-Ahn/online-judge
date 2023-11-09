@@ -33,10 +33,12 @@ public class JudgeService {
 
             // 메모리 초과, 시간 초과, 런타임 에러 등으로 파일이 실행되지 않은 경우
             if (result.getJudgeResult() == JudgeResult.FAIL) {
+                sourceFile.delete();
                 return new JudgeResponse(result.getJudgeResult(), result.getOutput());
             }
             // 파일이 실행되어 결과물을 출력했으나 테스트 케이스와 다른 경우
             if (!outputComparator.compare(result.getOutput(), testCase.getOutput())) {
+                sourceFile.delete();
                 return new JudgeResponse(JudgeResult.FAIL, "틀렸습니다.");
             }
             // 테스트 케이스 하나에 대해서 통과했으므로 다음 for 문으로 넘어가 다음 코드와 비교
