@@ -47,7 +47,7 @@ public class FileCreateService {
 
     public File createTempTextFile(String inputText) {
         Path submitDirPath = Path.of(CURRENT_WORKING_DIR, USER_SUBMIT_DIR);
-
+ 
         // submitDirPath 에 해당하는 디렉토리가 없으면 생성합니다.
         createDir(submitDirPath);
 
