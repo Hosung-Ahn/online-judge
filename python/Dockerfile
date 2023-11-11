@@ -2,4 +2,4 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-COPY Judge.py ./
+COPY PythonRunner.py ./
