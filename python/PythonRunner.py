@@ -16,8 +16,8 @@ def create_result(success, error_name, execution_time_in_ms, output):
         "output": output
     }
 
-    filename = f"result/{uuid.uuid4()}.json"
-    with open(filename, "w") as file:
+    filename = uuid.uuid4();
+    with open(f"result/{filename}.json", "w") as file:
         json.dump(data, file)
 
     return filename
