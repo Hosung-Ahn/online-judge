@@ -4,7 +4,10 @@ import io
 
 MAIN_PATH = "Main.py"
 INPUT_PATH = "input.txt"
-
+COMPILE_ERROR = "Compile Error"
+RUNTIME_ERROR = "Runtime Error"
+TIMEOUT_ERROR = "Timeout Error"
+SERVER_ERROR = "Server Error"
 
 def create_result(success, error, execution_time_in_ms, output):
     print(success)
@@ -29,7 +32,7 @@ def run_script(time_limit_in_ms):
             script_content = file.read()
         compile(script_content, MAIN_PATH, 'exec')
     except SyntaxError:
-        error = "compile error"
+        error = COMPILE_ERROR
 
     if error:
         sys.stdout = original_stdout
@@ -42,7 +45,7 @@ def run_script(time_limit_in_ms):
         # Executing the script
         exec(script_content, {'__name__': '__main__'})
     except Exception:
-        error = "runtime error"
+        error = RUNTIME_ERROR
 
     sys.stdout = original_stdout
     sys.stdin = original_stdin
@@ -51,7 +54,7 @@ def run_script(time_limit_in_ms):
     execution_time_in_ms = int((end_time - start_time) * 1000)
 
     if execution_time_in_ms > time_limit_in_ms:
-        error = "time limit exceeded"
+        error = TIMEOUT_ERROR
 
     if error:
         create_result(False, error, execution_time_in_ms, "")

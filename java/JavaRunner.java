@@ -4,6 +4,9 @@ import java.util.concurrent.TimeUnit;
 public class JavaRunner {
     private static final String MAIN_PATH = "Main.java";
     private static final String INPUT_PATH = "input.txt";
+    private static final String COMPILE_ERROR = "Compile Error";
+    private static final String RUNTIME_ERROR = "Runtime Error";
+    private static final String TIMEOUT_ERROR = "Timeout Error";
 
     public static void main(String[] args) {
         int timeLimitInMs = Integer.parseInt(args[0]);
@@ -13,7 +16,7 @@ public class JavaRunner {
             boolean compileFinished = compileProcess.waitFor(timeLimitInMs, TimeUnit.MILLISECONDS);
 
             if (!compileFinished || compileProcess.exitValue() != 0) {
-                createResult(false, "Compile Error", timeLimitInMs, "");
+                createResult(false, COMPILE_ERROR, timeLimitInMs, "");
                 return;
             }
 
@@ -27,7 +30,7 @@ public class JavaRunner {
             long executionTimeInMs = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
 
             if (!finished) {
-                createResult(false, "Time Limit Exceeded", timeLimitInMs, "");
+                createResult(false, TIMEOUT_ERROR, timeLimitInMs, "");
                 process.destroy();
                 return;
             }
@@ -35,7 +38,7 @@ public class JavaRunner {
             String output = readStream(process.getInputStream());
 
             if (process.exitValue() != 0) {
-                createResult(false, "Runtime Error", (int) executionTimeInMs, output);
+                createResult(false, RUNTIME_ERROR, (int) executionTimeInMs, output);
                 return;
             } else {
                 createResult(true, "", (int) executionTimeInMs, output);
