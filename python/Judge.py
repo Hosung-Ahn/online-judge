@@ -1,56 +1,59 @@
 import time
-import tracemalloc
 import sys
 import io
+import json
+import uuid
+
+MAIN_PATH = "Main.py"
+INPUT_PATH = "input.txt"
 
 
-# 양식
-# 0,1 : 1은 정상, 0은 오류
-# error : 오류 종류 ( 있다면 이 줄에서 끝 / 없으면 이 줄 생략하고 다음 줄 )
-# time : 실행 시간 ( ms )
-# memory : 메모리 사용량 ( byte )
-# output : 출력
-def run_script(script_path, input_file_path, time_limit=1, memory_limit=10000000):
+def create_result(success, error_name, execution_time_in_ms, output):
+    data = {
+        "success": success,
+        "error_name": error_name,
+        "execution_time_in_ms": execution_time_in_ms,
+        "output": output
+    }
+
+    filename = f"result/{uuid.uuid4()}.json"
+    with open(filename, "w") as file:
+        json.dump(data, file)
+
+    return filename
+
+def run_script(time_limit_in_ms):
     original_stdin = sys.stdin
-    sys.stdin = open(input_file_path, 'r')
-
+    original_stdout = sys.stdout
+    sys.stdin = open(INPUT_PATH, 'r')
     output_capture = io.StringIO()
     sys.stdout = output_capture
 
     start_time = time.time()
-    tracemalloc.start()
+
     try:
-        with open(script_path, 'r') as file:
+        with open(MAIN_PATH, 'r') as file:
             exec(file.read(), {'__name__': '__main__'})
     except Exception as e:
         error_occurred = e.__class__.__name__
-        result = f"0\n{error_occurred}"
-        print(result)
+        sys.stdout = original_stdout
+        sys.stdin = original_stdin
+        print(create_result(False, error_occurred, 0, ""))
         return
     finally:
-        sys.stdin.close()
+        sys.stdout = original_stdout
         sys.stdin = original_stdin
-        sys.stdout = sys.__stdout__
 
     end_time = time.time()
-    execution_time = end_time - start_time
-    current, peak = tracemalloc.get_traced_memory()
-    tracemalloc.stop()
+    execution_time_in_ms = int((end_time - start_time) * 1000)
 
-    if execution_time > time_limit:
-        result = f"0\ntime limit exceeded"
-        print(result)
+    if execution_time_in_ms > time_limit_in_ms:
+        print(create_result(False, "TimeLimitExceededError", execution_time_in_ms, ""))
         return
 
-    if peak > memory_limit:
-        result = f"0\nmemory limit exceeded"
-        print(result)
-        return
-
-    result = f"1\n{int(execution_time * 1000)}\n{peak}\n{output_capture.getvalue()}"
-    print(result)
-    return
+    output = output_capture.getvalue()
+    print(create_result(True, "", execution_time_in_ms, output))
 
 
 # Usage
-run_script('Main.py', 'input.txt')
+run_script(10000)
