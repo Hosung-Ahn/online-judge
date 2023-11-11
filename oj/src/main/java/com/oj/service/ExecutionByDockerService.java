@@ -77,7 +77,7 @@ public class ExecutionByDockerService {
             case JAVA:
                 return "openjdk";
             case PYTHON:
-                return "python";
+                return "python:3.9-slim";
         }
         throw new IllegalArgumentException("Unsupported language");
     }
