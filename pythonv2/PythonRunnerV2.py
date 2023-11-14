@@ -50,7 +50,7 @@ if execution.returncode != 0:
 end_memory = resource.getrusage(resource.RUSAGE_CHILDREN)
 
 execution_time = (end_time - start_time) * 1000
-memory_usage = (end_memory.ru_maxrss - start_memory.ru_maxrss) / 1024 # 운영체제에 따라 단위가 다릅니다. mac os는 B, linux는 KB
+memory_usage = (end_memory.ru_maxrss - start_memory.ru_maxrss) # 우분투 -> kb
 
 result['execution_time'] = execution_time
 result['memory_usage'] = memory_usage
