@@ -20,12 +20,11 @@ parser.add_argument("--memory", type=int, default=256 * 1024, help="메모리 �
 args = parser.parse_args()
 
 result = {
-    "error": None,
+    "error" : None,
     "execution_time": None,  # (MS)
     "memory_usage": None,  # (KB)
     "output": None,
 }
-
 
 def create_result():
     print(result)
@@ -33,12 +32,14 @@ def create_result():
         json.dump(result, result_file)
 
 
-compile_command = f"g++ -std=c++17 -o ./Main {CPP_FILE_NAME}"
+with open(CPP_FILE_NAME, 'r') as cpp_file:
+    cpp_code = cpp_file.read()
+
+compile_command = f"g++ -o ./Main {CPP_FILE_NAME}"
 compilation = subprocess.run(compile_command, shell=True, capture_output=True)
 
 if compilation.returncode != 0:
     result['error'] = COMPILE_ERROR
-    result['output'] = compilation.stderr.decode('utf-8')  # 개발용
     create_result()
     exit(0)
 
@@ -54,17 +55,11 @@ except subprocess.TimeoutExpired:
     create_result()
     exit(0)
 end_time = time.perf_counter()
-
-if execution.returncode != 0:
-    result['error'] = RUNTIME_ERROR
-    result['output'] = execution.stderr.decode('utf-8')  # 개발용
-    create_result()
-    exit(0)
-
+end_memory = resource.getrusage(resource.RUSAGE_CHILDREN)
 
 execution_time = (end_time - start_time) * 1000
-end_memory = resource.getrusage(resource.RUSAGE_CHILDREN)
-memory_usage = (end_memory.ru_maxrss - start_memory.ru_maxrss)  # 우분투 -> kb
+memory_usage = (end_memory.ru_maxrss - start_memory.ru_maxrss) # 우분투 -> kb
+
 if memory_usage > args.memory:
     result['error'] = MEMORY_ERROR
     create_result()
