@@ -20,11 +20,11 @@ RUN apt-get update && \
 RUN apt-get update && \
     apt-get install -y time
 
-# Python 설치 확인
-RUN python3.10 --version
+# jp 설치
+RUN apt-get update && \
+    apt-get install -y jq
 
-# Java 설치 확인
-RUN java --version
+# 각 언어별 실행기 
+COPY cpp_runner.sh /app/cpp_runner.sh
 
-# g++ 설치 확인 (C++17 지원)
-RUN g++ --version
+RUN chmod +x /app/cpp_runner.sh
