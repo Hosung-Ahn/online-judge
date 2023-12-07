@@ -26,5 +26,9 @@ RUN apt-get update && \
 
 # 각 언어별 실행기 
 COPY cpp_runner.sh /app/cpp_runner.sh
+COPY python_runner.sh /app/python_runner.sh
+COPY java_runner.sh /app/java_runner.sh
 
 RUN chmod +x /app/cpp_runner.sh
+RUN chmod +x /app/python_runner.sh
+RUN chmod +x /app/java_runner.sh

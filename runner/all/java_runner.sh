@@ -4,7 +4,7 @@
 time_limit_s=$1
 
 # 컴파일
-g++ Main.cpp -o Main 2> /dev/null
+javac Main.java 2> /dev/null
 
 # 컴파일 에러 확인
 if [ $? -ne 0 ]; then
@@ -13,7 +13,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # 실행 및 시간과 메모리 사용량 측정, 실행 결과를 output.txt에 저장
-/usr/bin/time -f "{\"elapsedSeconds\":%e,\"usageKb\":%M}" -o time.json timeout $time_limit_s ./Main < input.txt > output.txt
+/usr/bin/time -f "{\"elapsedSeconds\":%e,\"usageKb\":%M}" -o time.json timeout $time_limit_s java Main < input.txt > output.txt
 
 exitCode=$? 
 if [ $exitCode -eq 124 ]; then
