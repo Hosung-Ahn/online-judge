@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -19,7 +18,8 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class ProblemCreateService {
-    private final String TEST_CASE_PATH = "/Users/hosung/Workspace/online-judge/oj/src/main/java/com/oj/testcase";
+    private final String CURRENT_DIRECTORY = System.getProperty("user.dir");
+    private final String TESTCASE_PATH = CURRENT_DIRECTORY + "/src/main/resources/testcase";
 
     private final ProblemRepository problemRepository;
 
@@ -40,7 +40,7 @@ public class ProblemCreateService {
     }
 
     private void createTestCases(Long problemId, List<TestCase> testCases) {
-        File problemDir = new File(TEST_CASE_PATH, problemId.toString());
+        File problemDir = new File(TESTCASE_PATH, problemId.toString());
         if (!problemDir.exists()) {
             problemDir.mkdir();
         }

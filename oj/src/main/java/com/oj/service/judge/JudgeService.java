@@ -17,8 +17,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class JudgeService {
-    private final String testCasePath = "/Users/hosung/Workspace/online-judge/oj/src/main/java/com/oj/testcase";
-    private final String sourceCodePath = "/Users/hosung/Workspace/online-judge/oj/src/main/java/com/oj/sourcecode";
+    private final String CURRENT_DIRECTORY = System.getProperty("user.dir");
+    private final String TESTCASE_PATH = CURRENT_DIRECTORY + "/src/main/resources/testcase";
+    private final String SOURCECODE_PATH = CURRENT_DIRECTORY + "/src/main/resources/sourcecode";
 
     private final ProblemRepository problemRepository;
     private final TestRunner testRunner;
@@ -31,13 +32,13 @@ public class JudgeService {
         Integer timeLimitSec = problem.getTimeLimitSec();
         Integer memoryLimitMb = problem.getMemoryLimitMb();
         File tempSourceFile = TempFileCreator.createTempFile(
-                sourceCode, "source", language.getExtension(), new File(sourceCodePath));
+                sourceCode, "source", language.getExtension(), new File(SOURCECODE_PATH));
 
         List<SingleJudgeResultDto> testResults = new ArrayList<>();
 
         for (int i=0; i<testCount; i++) {
-            String inputTestPath = testCasePath + "/" + problemId + "/" + "input" + i + ".txt";
-            String outputTestPath = testCasePath + "/" + problemId + "/" + "output" + i + ".txt";
+            String inputTestPath = TESTCASE_PATH + "/" + problemId + "/" + "input" + i + ".txt";
+            String outputTestPath = TESTCASE_PATH + "/" + problemId + "/" + "output" + i + ".txt";
 
             TestResultDto testResultDto = testRunner.runTest(tempSourceFile.getAbsolutePath(), inputTestPath,
                     language, timeLimitSec, memoryLimitMb);
