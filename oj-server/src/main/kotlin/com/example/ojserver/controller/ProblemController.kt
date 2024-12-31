@@ -3,6 +3,7 @@ package com.example.ojserver.controller
 import com.example.ojserver.dto.ProblemCreateRequestDto
 import com.example.ojserver.dto.ProblemCreateResponseDto
 import com.example.ojserver.dto.ProblemResponseDto
+import com.example.ojserver.dto.TestCaseDto
 import com.example.ojserver.service.ProblemService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -31,5 +32,11 @@ class ProblemController(
     ): ResponseEntity<ProblemResponseDto> {
         val problem = problemService.getProblem(problemId)
         return ResponseEntity.ok(problem)
+    }
+
+    @GetMapping("/testCase/upload")
+    fun uploadTestCase(testCaseDto: TestCaseDto): ResponseEntity<String> {
+        problemService.addTestCase(testCaseDto)
+        return ResponseEntity.ok("Uploaded")
     }
 }

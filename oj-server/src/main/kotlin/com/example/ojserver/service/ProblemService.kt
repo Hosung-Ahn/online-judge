@@ -1,6 +1,7 @@
 package com.example.ojserver.service
 
 import com.example.ojserver.dto.ProblemCreateRequestDto
+import com.example.ojserver.dto.ProblemResponseDto
 import com.example.ojserver.dto.TestCaseDto
 import com.example.ojserver.entity.Problem
 import com.example.ojserver.repository.ProblemRepository
@@ -30,4 +31,19 @@ class ProblemService(
         fileService.saveFile(testCaseDto.input, "${testCaseDto.problemId}_${testCaseDto.caseId}_input.txt")
         fileService.saveFile(testCaseDto.output, "${testCaseDto.problemId}_${testCaseDto.caseId}_output.txt")
     }
+
+    fun getProblem(problemId: Long): ProblemResponseDto =
+        problemRepository
+            .findById(problemId)
+            .orElseThrow {
+                IllegalArgumentException("Problem not found")
+            }.let {
+                ProblemResponseDto(
+                    title = it.title,
+                    content = it.content,
+                    timeLimit = it.timeLimit,
+                    memoryLimit = it.memoryLimit,
+                    testCaseCount = it.testCaseCount,
+                )
+            }
 }
