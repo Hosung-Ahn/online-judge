@@ -18,7 +18,7 @@ class Problem(
     val timeLimit: Int,
     val memoryLimit: Int,
     @OneToMany(mappedBy = "problem", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val testCases: List<TestCase> = mutableListOf(),
+    val testCases: MutableList<TestCase> = mutableListOf(),
 )
 
 @Entity
@@ -30,4 +30,17 @@ class TestCase(
     @ManyToOne
     @JoinColumn(name = "problem_id", nullable = false)
     val problem: Problem,
-)
+) {
+    companion object {
+        fun of(
+            input: String,
+            output: String,
+            problem: Problem,
+        ): TestCase =
+            TestCase(
+                input = input,
+                output = output,
+                problem = problem,
+            )
+    }
+}
