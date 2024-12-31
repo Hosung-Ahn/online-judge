@@ -35,4 +35,5 @@ data class RunResultDto(
     val timeUsageMs: Long?,
     val memoryUsageKb: Long?,
     val output: String?,
+    val details: String?,
 )
