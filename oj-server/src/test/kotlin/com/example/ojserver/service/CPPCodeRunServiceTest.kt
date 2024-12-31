@@ -15,7 +15,7 @@ class CPPCodeRunServiceTest(
     @Test
     fun `CPP 코드 작동 성공`() {
         val inputPath = fileService.getPath("1_1_input.txt")
-        val sourcePath = "/Users/hosungan/Workspace/online-judge/oj-server/uploads/TestSuccess.cpp"
+        val sourcePath = fileService.getPath("TestSuccess.cpp")
         val result = codeRunService.runCode(sourcePath, inputPath, Language.CPP, 1, 256)
 
         println(result)
@@ -26,7 +26,7 @@ class CPPCodeRunServiceTest(
     @Test
     fun `CPP 코드 작동 실패 - 컴파일 에러`() {
         val inputPath = fileService.getPath("1_1_input.txt")
-        val sourcePath = "/Users/hosungan/Workspace/online-judge/oj-server/uploads/TestCompileError.cpp"
+        val sourcePath = fileService.getPath("TestCompileError.cpp")
         val result = codeRunService.runCode(sourcePath, inputPath, Language.CPP, 1, 256)
 
         println(result)
@@ -37,7 +37,7 @@ class CPPCodeRunServiceTest(
     @Test
     fun `CPP 코드 작동 실패 - 런타임 에러`() {
         val inputPath = fileService.getPath("1_1_input.txt")
-        val sourcePath = "/Users/hosungan/Workspace/online-judge/oj-server/uploads/TestRuntimeError.cpp"
+        val sourcePath = fileService.getPath("TestRuntimeError.cpp")
         val result = codeRunService.runCode(sourcePath, inputPath, Language.CPP, 1, 256)
 
         println(result)
@@ -48,7 +48,7 @@ class CPPCodeRunServiceTest(
     @Test
     fun `CPP 코드 작동 실패 - 시간 초과`() {
         val inputPath = fileService.getPath("1_1_input.txt")
-        val sourcePath = "/Users/hosungan/Workspace/online-judge/oj-server/uploads/TestTimeOut.cpp"
+        val sourcePath = fileService.getPath("TestTimeOut.cpp")
         val result = codeRunService.runCode(sourcePath, inputPath, Language.CPP, 1, 256)
 
         println(result)
@@ -59,7 +59,7 @@ class CPPCodeRunServiceTest(
     @Test
     fun `CPP 코드 작동 실패 - 메모리 초과`() {
         val inputPath = fileService.getPath("1_1_input.txt")
-        val sourcePath = "/Users/hosungan/Workspace/online-judge/oj-server/uploads/TestMemoryOut.cpp"
+        val sourcePath = fileService.getPath("TestMemoryOut.cpp")
         val result = codeRunService.runCode(sourcePath, inputPath, Language.CPP, 10, 256)
 
         println(result)

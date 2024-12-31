@@ -15,7 +15,7 @@ class PythonCodeRunServiceTest(
     @Test
     fun `Python 코드 작동 성공`() {
         val inputPath = fileService.getPath("1_1_input.txt")
-        val sourcePath = "/Users/hosungan/Workspace/online-judge/oj-server/uploads/TestSuccess.py"
+        val sourcePath = fileService.getPath("TestSuccess.py")
         val result = codeRunService.runCode(sourcePath, inputPath, Language.PYTHON, 1, 256)
 
         println(result)
@@ -28,7 +28,7 @@ class PythonCodeRunServiceTest(
     @Test
     fun `Python 코드 작동 실패 - 런타임 에러`() {
         val inputPath = fileService.getPath("1_1_input.txt")
-        val sourcePath = "/Users/hosungan/Workspace/online-judge/oj-server/uploads/TestRuntimeError.py"
+        val sourcePath = fileService.getPath("TestRuntimeError.py")
         val result = codeRunService.runCode(sourcePath, inputPath, Language.PYTHON, 1, 256)
 
         println(result)
@@ -39,7 +39,7 @@ class PythonCodeRunServiceTest(
     @Test
     fun `Python 코드 작동 실패 - 시간 초과`() {
         val inputPath = fileService.getPath("1_1_input.txt")
-        val sourcePath = "/Users/hosungan/Workspace/online-judge/oj-server/uploads/TestTimeOut.py"
+        val sourcePath = fileService.getPath("TestTimeOut.py")
         val result = codeRunService.runCode(sourcePath, inputPath, Language.PYTHON, 1, 256)
 
         println(result)
@@ -50,7 +50,7 @@ class PythonCodeRunServiceTest(
     @Test
     fun `Python 코드 작동 실패 - 메모리 초과`() {
         val inputPath = fileService.getPath("1_1_input.txt")
-        val sourcePath = "/Users/hosungan/Workspace/online-judge/oj-server/uploads/TestMemoryOut.py"
+        val sourcePath = fileService.getPath("TestMemoryOut.py")
         val result = codeRunService.runCode(sourcePath, inputPath, Language.PYTHON, 10, 256)
 
         println(result)
