@@ -31,8 +31,8 @@ data class ProblemResponseDto(
 
 data class RunResultDto(
     val success: Boolean,
-    val error: ErrorType,
-    val timeUsageMs: Long,
-    val memoryUsageKb: Long,
-    val output: String,
+    val error: ErrorType?,
+    val timeUsageMs: Long?,
+    val memoryUsageKb: Long?,
+    val output: String?,
 )
