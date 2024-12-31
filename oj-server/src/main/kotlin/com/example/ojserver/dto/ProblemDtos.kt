@@ -1,16 +1,19 @@
 package com.example.ojserver.dto
 
+import org.springframework.web.multipart.MultipartFile
+
 data class ProblemCreateRequestDto(
     val title: String,
     val content: String,
-    val testCases: List<TestCaseDto>,
     val timeLimit: Int,
     val memoryLimit: Int,
 )
 
 data class TestCaseDto(
-    val input: String,
-    val output: String,
+    val problemId: Long,
+    val caseId: Long,
+    val input: MultipartFile,
+    val output: MultipartFile,
 )
 
 data class ProblemCreateResponseDto(
@@ -20,7 +23,7 @@ data class ProblemCreateResponseDto(
 data class ProblemResponseDto(
     val title: String,
     val content: String,
-    val testCases: List<TestCaseDto>,
     val timeLimit: Int,
     val memoryLimit: Int,
+    val testCaseCount: Int,
 )
