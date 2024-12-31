@@ -32,4 +32,6 @@ class FileService {
             throw IllegalArgumentException("Failed to save file")
         }
     }
+
+    fun getPath(fileName: String): String = Paths.get("").toAbsolutePath().toString() + "/uploads/$fileName"
 }
