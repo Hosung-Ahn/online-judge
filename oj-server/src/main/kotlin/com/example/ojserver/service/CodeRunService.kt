@@ -35,16 +35,13 @@ class CodeRunService(
         return try {
             val process =
                 ProcessBuilder(command)
-                    .redirectErrorStream(true) // Combine stdout and stderr
+                    .redirectErrorStream(false)
                     .start()
 
             val output = process.inputStream.bufferedReader().use { it.readText() }
             val exitCode = process.waitFor()
 
-            if (exitCode != 0) {
-                throw RuntimeException("Docker process failed with exit code $exitCode")
-            }
-
+            println(output)
             objectMapper.readValue(output, RunResultDto::class.java)
         } catch (e: Exception) {
             throw RuntimeException("Failed to execute test runner", e)
