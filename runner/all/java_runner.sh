@@ -13,7 +13,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # 실행 및 시간과 메모리 사용량 측정, 실행 결과를 output.txt에 저장
-/usr/bin/time -f "{\"elapsedSeconds\":%e,\"usageKb\":%M}" -o time.json timeout $time_limit_s java Main < input.txt > output.txt 2> runtime_error.log
+/usr/bin/time -f "{\"elapsedSeconds\":%e,\"usageKb\":%M}" -o time.json timeout $time_limit_s java -Xmx1024m Main < input.txt > output.txt 2> runtime_error.log
 
 exitCode=$?
 if [ $exitCode -eq 124 ]; then
