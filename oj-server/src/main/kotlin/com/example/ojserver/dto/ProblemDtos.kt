@@ -1,5 +1,6 @@
 package com.example.ojserver.dto
 
+import com.example.ojserver.entity.ErrorType
 import org.springframework.web.multipart.MultipartFile
 
 data class ProblemCreateRequestDto(
@@ -26,4 +27,12 @@ data class ProblemResponseDto(
     val timeLimit: Int,
     val memoryLimit: Int,
     val testCaseCount: Int,
+)
+
+data class RunResultDto(
+    val success: Boolean,
+    val error: ErrorType,
+    val timeUsageMs: Long,
+    val memoryUsageKb: Long,
+    val output: String,
 )
