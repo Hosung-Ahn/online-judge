@@ -28,6 +28,11 @@ class ProblemService(
     }
 
     fun addTestCase(testCaseDto: TestCaseDto) {
+        val problem =
+            problemRepository.findById(testCaseDto.problemId).orElseThrow {
+                IllegalArgumentException("Problem not found")
+            }
+        problem.testCaseCount += 1
         fileService.saveFile(testCaseDto.input, "${testCaseDto.problemId}_${testCaseDto.caseId}_input.txt")
         fileService.saveFile(testCaseDto.output, "${testCaseDto.problemId}_${testCaseDto.caseId}_output.txt")
     }

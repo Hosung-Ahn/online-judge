@@ -13,5 +13,5 @@ class Problem(
     val content: String,
     val timeLimit: Int,
     val memoryLimit: Int,
-    val testCaseCount: Int = 0,
+    var testCaseCount: Int = 0,
 )
